@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastering Data Visualization</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering Data Visualization</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Strona główna</a>
+          <a class="nav-link active" aria-current="page" href=".">Strona główna</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Tematy</a>
@@ -40,8 +40,8 @@
 
 
 <!-- Content Container -->
-<div class="content-container d-flex align-items-center justify-content-center">
-    <div id="quote-container" class="text-center">
+<div class="content-container d-flex justify-content-center">
+    <div id="quote-container" class="text-center my-auto">
       <figure id="quote-figure">
         <blockquote id="title-quote" class="blockquote">
           <p>The greatest value of a picture is when it forces us to notice what we never expected to <a id="title-quote-change" class="pointer lang-pl"><em>see</em></a>.</p>
@@ -52,23 +52,30 @@
       </figure>
     </div>
 
-    <div id="slide-content" class="px-5">
+    <div id="slide-content" class="p-5">
       <div class="row pb-5">
         <div class="col text-center">
           <h1 class="display-5">Wizualizacja danych to prezentowanie złożonych struktur danych w prosty, zrozumiały dla odbiorcy sposób.</h1>
         </div>
       </div>
-      <div class="row align-items-center">
+
+      <div id="bad-example-container" class="row align-items-center">
         <div class="col">
-          <p id="climate-change-bad-example"><span class="typing-cursor">|</span></p>
+          <p id="climate-change-bad-example" class="text-center w-75 mx-auto"><span class="typing-cursor">|</span></p>
+          <p id="climate-change-action-button" class="text-center w-75 mx-auto"><a class="pointer"><em>Czy to dobry przykład?</em></a></p>
         </div>
-        <div class="col text-center">
-          <div class="image-reveal-container text-center">
-            <div class="image-cover"></div>
-            <img src="img/Climate_stripes_Ed_Hawkins.jpg" style="max-width: 100%; max-height: 300px;" alt="Climate Stripes by Ed Hawkins">
+      </div>
+
+      <div id="good-example-container" class="row align-items-center">
+        <div class="col">
+          <div class="text-center">
+            <img src="img/Climate_stripes_Ed_Hawkins.jpg" style="max-width: 100%; max-height: 400px;" alt="Climate Stripes by Ed Hawkins">
           </div>
         </div>
       </div>
+
+
+
     </div>
 
 
@@ -82,7 +89,10 @@
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script type="text/javascript">
-  $("#slide-content").hide()
+  // init state
+  $("#slide-content").hide();
+  $("#climate-change-action-button").hide();
+  $("#good-example-container").hide();
 
   // functions
   function typing_effect(text, identifier, callback) {
@@ -101,13 +111,11 @@
         }
       }
     };
-
     typeWord();
   }
 
-
   $(document).ready(function() {
-    // clicks
+    // click paths
     $("#title-quote-change").click(function() {
       var $quote = $("#title-quote");
       $quote.fadeTo('slow', 0.001, function() {
@@ -117,17 +125,12 @@
             $("#quote-figure").fadeTo('slow', 0, function() {
               $("#quote-container").remove();
               $("#slide-content").fadeIn("fast", function() {
-
                 var text = "W ciągu ostatniego stulecia Ziemia była świadkiem znacznego wzrostu globalnych temperatur, przy średnim wzroście o około 1,1°C (2,0°F) od końca XIX wieku. Ten trend ocieplenia jest szczególnie wyraźny w ostatnich dziesięcioleciach, a lata 2001–2020 należą do najcieplejszych od ponad 2000 lat. Antropogeniczne emisje gazów cieplarnianych, wynikające z takich działań, jak spalanie paliw kopalnych, wylesianie i różne procesy przemysłowe, gwałtownie wzrosły, co prowadzi do nasilenia efektu cieplarnianego, który zatrzymuje więcej ciepła w atmosferze. Konsekwencje tego ocieplenia obejmują częstsze i intensywniejsze fale upałów, utratę przez lodowce średnio 267 miliardów ton lodu rocznie, wzrost poziomu mórz w średnim tempie 3,3 milimetra rocznie od początku lat 90. XX wieku oraz zmieniające się warunki pogodowe. Ta tendencja do ocieplenia odzwierciedla znaczący wpływ działalności człowieka na globalną temperaturę i podkreśla pilną potrzebę podjęcia kompleksowych działań klimatycznych w celu złagodzenia przyszłych zagrożeń i dostosowania się do zachodzących zmian.";
-                typing_effect(text, "#climate-change-bad-example", () => {
-                  $('.image-cover').animate({
-                    width: '0%',
-                    left: '100%' /* Slide out to the left */
-                  }, 2000); // Duration of the animation in milliseconds
+                typing_effect(text, "#climate-change-bad-example", function() {
+                  setTimeout(function() {
+                    $("#climate-change-action-button").fadeIn("slow");
+                  }, 1000);
                 });
-
-
-
               });
             });
           }, 2000);
@@ -135,16 +138,14 @@
       });
     });
 
-
-
-
-
-
-
+    $("#climate-change-action-button").click(function() {
+      $("#bad-example-container").fadeOut("slow", function() {
+        $("#good-example-container").slideDown();
+      });
+    });
 
   });
 </script>
-
 
 </body>
 </html>
