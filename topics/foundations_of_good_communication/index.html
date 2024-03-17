@@ -340,9 +340,48 @@
         const regionColors = d3.scaleOrdinal()
           .domain(["asia", "africa", "europe", "americas"])
           .range(["#1f77b4", "brown", "#ff7f0e", "#2ca02c"]);
+
         this.chartGroup.selectAll(".circle-point")
           .transition().duration(500)
           .attr("fill", d =>regionColors(d.region));
+
+
+        const legendSpacing = 4; // Spacing between legend entries
+        const legendRectSize = 12; // The size of the legend color box
+        const legendX = 70; // Positioning the legend on the right
+        const legendY = this.height - 40; // Starting position of the legend
+
+        const legend = this.svg.selectAll('.legend') // Select all legend elements
+          .style("opacity", 1)
+          .data(regionColors.domain()) // Bind domain data
+          .enter() // For each data point in the domain
+          .append('g') // Append a 'g' element
+          .attr('class', 'legend') // With class 'legend'
+          .attr('transform', function(d, i) {
+            const height = legendRectSize + legendSpacing;
+            const offset = height * regionColors.domain().length / 2;
+            const horz = legendX; // horizontal position
+            const vert = i * height + legendY;
+            return `translate(${horz},${vert - offset})`; // vertical position, centered
+          });
+
+        legend.append('rect') // Append a rectangle
+          .attr('width', legendRectSize) // Width of the rectangle
+          .attr('height', legendRectSize) // Height of the rectangle
+          .style('fill', regionColors) // Fill using the regionColors scale
+          .style('stroke', regionColors) // Border using the same color
+          .style("opacity", 0)
+            .transition().duration(1000)
+            .style("opacity", 1);
+
+        legend.append('text') // Append a text element
+          .style("opacity", 0)
+          .attr("font-size", "10px")
+          .attr('x', legendRectSize + legendSpacing) // X position to the right of the square
+          .attr('y', legendRectSize - legendSpacing) // Y position
+          .text(d => d.charAt(0).toUpperCase() + d.slice(1)) // Capitalize the first letter
+            .transition().duration(500)
+            .style("opacity", 1);
       },
 
       updatePointRadius: function() {
@@ -361,8 +400,6 @@
           .attr("stroke", "grey")
           .attr("stroke-width", 0.5)
           .style("opacity", 0.75);
-
-
       }
 
     };
