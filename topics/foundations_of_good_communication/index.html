@@ -397,9 +397,10 @@
       updatePointOpacityAndBorder: function() {
         this.chartGroup.selectAll(".circle-point")
           .transition().duration(1000)
+          .style("fill-opacity", 0.6)
           .attr("stroke", "grey")
-          .attr("stroke-width", 0.5)
-          .style("opacity", 0.75);
+          .attr("stroke-width", 1);
+
       }
 
     };
