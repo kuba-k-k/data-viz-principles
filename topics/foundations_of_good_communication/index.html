@@ -7,6 +7,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../../css/style.css">
 
@@ -54,7 +56,82 @@
 </nav>
 
 <!-- Content Container -->
-<div class="content-container d-flex justify-content-center">
+<div class="content-container">
+
+
+
+  <div class="row w-100 py-3 border-bottom">
+    <div class="col text-center">
+      <h1 class="display-6">Środki ekspresji wizualnej</h1>
+    </div>
+  </div>
+
+  <div class="row w-100 pt-4">
+    <div class="col-2 px-5" style="height: 500px;">
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class=" d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Start</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-start" style="margin-top: 6px;">
+        </div>
+      </div>
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class=" d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Oznaczenie</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-indication" style="margin-top: 6px;">
+        </div>
+      </div>
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class="d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Kształt</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-shape" style="margin-top: 6px;">
+        </div>
+      </div>
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class="d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Kolor</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-color" style="margin-top: 6px;">
+        </div>
+      </div>
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class="d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Rozmiar</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-size" style="margin-top: 6px;">
+        </div>
+      </div>
+
+      <div class="row pb-1">
+        <div class="col-9">
+          <span class="d-flex align-items-center"><i class="bi bi-question-circle small"></i>&nbsp;Głębia</span>
+        </div>
+        <div class="col-3 text-center">
+          <input class="form-check-input position-static" type="checkbox" id="menu-depth" style="margin-top: 6px;">
+        </div>
+      </div>
+
+    </div>
+    <div class="col-10" style="height: 500px;">
+      <div id="pointtooltip" style="position: absolute; visibility: hidden; padding: 8px; background-color: white; border: 1px solid #ddd; border-radius: 4px; text-align: left; font-size: 12px; color: #333;"></div>
+      <div id="chart" class="w-100" style="height: 100%;"></div>
+    </div>
+
+  </div>
+
+
 
 </div>
 
@@ -73,11 +150,270 @@
 
 
   $(document).ready(function() {
+
+    // gapminder-like tool
+    const chartContainer = document.getElementById("chart");
+    const scatterChart = {
+      svg: null,
+      chartGroup: null,
+      width: chartContainer.clientWidth,
+      height: chartContainer.clientHeight,
+      x: null,
+      y: null,
+      data: null,
+      country_mapping: null,
+      init: function() {
+        d3.json("../../data/gapminder_country_map.json").then(country_mapping => {
+          this.country_mapping = country_mapping;
+
+          // svg setup
+          const margin = {top: 0, right: 60, bottom: 100, left: 60};
+          this.width = this.width - margin.left - margin.right;
+          this.height = this.height - margin.top - margin.bottom;
+
+          this.svg = d3.select("#chart").append("svg")
+            .attr("width", this.width + margin.left + margin.right)
+            .attr("height", this.height + margin.top + margin.bottom)
+
+          this.chartGroup = this.svg.append("g")
+              .attr("transform", `translate(${margin.left},${margin.top})`)
+              .style("opacity", 0);
+
+          this.loadData();
+        });
+      },
+
+      loadData: function() {
+        d3.csv("../../data/gapminder_data.csv").then(data => {
+          this.createScatterPlot(data);
+        }).catch(error => console.error("Error loading the CSV file: ", error));
+      },
+
+      createScatterPlot: function(data) {
+        this.data = data;
+        const gdpFormat = d3.format(",.0f");
+        const lifeExpectancyFormat = d3.format(".1f");
+
+        data.forEach(d => {
+          d.region = d.region;
+          d.country = this.country_mapping[d.country_code];
+          d.gdp_per_capita = +d.gdp_per_capita;
+          d.life_expectancy = +d.life_expectancy;
+          d.population = +d.population;
+        });
+        const data2023 = this.data.filter(d => +d.year === 2023);
+
+        // scales
+        this.x = d3.scaleLinear()
+          .domain([d3.min(data2023, d => d.gdp_per_capita), d3.max(data2023, d => d.gdp_per_capita*1.025)])
+          .range([0, this.width]);
+
+        this.y = d3.scaleLinear()
+          .domain([d3.min(this.data, d => d.life_expectancy), d3.max(this.data, d => d.life_expectancy*1.1)])
+          .range([this.height, 0]);
+
+        // axes
+        this.chartGroup.append("g")
+          .attr("class", "x-axis")
+          .attr("transform", `translate(0,${this.height})`)
+          .call(d3.axisBottom(this.x));
+
+        this.chartGroup.append("g")
+          .attr("class", "y-axis")
+          .call(d3.axisLeft(this.y))
+
+        this.chartGroup.select(".x-axis").selectAll(".tick").style("opacity", 0);
+        this.chartGroup.select(".y-axis").selectAll(".tick").style("opacity", 0);
+
+        // points
+        this.chartGroup.selectAll(".point")
+          .data(data2023)
+          .enter().append("text")
+          .attr("class", "point")
+          .attr("x", d => this.x(d.gdp_per_capita))
+          .attr("y", d => this.y(d.life_expectancy))
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("fill", "black")
+          .text("x")
+          .on("mouseover", function(event, d) {
+            d3.select("#pointtooltip")
+              .style("visibility", "visible")
+              .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+              .style("top", (event.pageY - 10) + "px")
+              .style("left", (event.pageX + 10) + "px");
+          })
+          .on("mouseout", function() {
+            d3.select("#pointtooltip").style("visibility", "hidden");
+          });
+
+        this.chartGroup
+          .transition().duration(1000).style("opacity", 1)
+
+      },
+
+      drawAxisLabels: function() {
+        this.chartGroup.append("text")
+          .attr("class", "x axis-label")
+          .attr("text-anchor", "end")
+          .attr("x", this.width / 2)
+          .attr("y", this.height + 40)
+          .text("PKB na mieszkańca")
+          .style("opacity", 0)
+          .transition().duration(1000)
+          .style("opacity", 1);
+
+        this.chartGroup.append("text")
+          .attr("class", "y axis-label")
+          .attr("text-anchor", "middle")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -40)
+          .attr("x", - this.height / 2)
+          .text("Oczekiwana długość życia")
+          .style("opacity", 0)
+          .transition().duration(1000)
+          .style("opacity", 1);
+
+          this.chartGroup.select(".x-axis").selectAll(".tick")
+            .transition().duration(1000)
+            .style("opacity", 1);
+          this.chartGroup.select(".y-axis").selectAll(".tick")
+            .transition().duration(1000)
+            .style("opacity", 1);
+      },
+
+      hideAxisLabels: function() {
+        this.chartGroup.selectAll(".axis-label")
+          .transition().duration(1000)
+          .style("opacity", 0)
+          .remove();
+
+          this.chartGroup.select(".x-axis").selectAll(".tick")
+            .transition().duration(1000)
+            .style("opacity", 0);
+          this.chartGroup.select(".y-axis").selectAll(".tick")
+            .transition().duration(1000)
+            .style("opacity", 0);
+      },
+
+      transitionXPointsToCircles: function() {
+        const data2023 = this.data.filter(d => +d.year === 2023);
+
+        const gdpFormat = d3.format(",.0f");
+        const lifeExpectancyFormat = d3.format(".1f");
+
+        // Fade out text elements
+        const fadeOutTransition = this.chartGroup.selectAll(".point")
+          .transition()
+          .duration(750)
+          .style("opacity", 0);
+        fadeOutTransition.end().then(() => {
+          // Once the fade-out is complete, remove the text elements
+          this.chartGroup.selectAll(".point").remove();
+
+          // Now, proceed to add circle elements for each data point
+          this.chartGroup.selectAll(".circle-point")
+            .data(data2023) // Assuming you store the filtered 2023 data in the object
+            .enter().append("circle") // Append circle elements
+              .attr("class", "circle-point")
+              .attr("cx", d => this.x(d.gdp_per_capita))
+              .attr("cy", d => this.y(d.life_expectancy))
+              .attr("r", 0) // Start with radius 0 for the animation
+              .attr("fill", "black")
+              .on("mouseover", function(event, d) {
+                d3.select("#pointtooltip")
+                  .style("visibility", "visible")
+                  .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+                  .style("top", (event.pageY - 10) + "px")
+                  .style("left", (event.pageX + 10) + "px");
+              })
+              .on("mouseout", function() {
+                d3.select("#pointtooltip").style("visibility", "hidden");
+              })
+              .transition().duration(500)
+              .attr("r", 2);
+
+        }).catch(error => console.error("Transition failed", error));
+      },
+
+      updatePointColors: function() {
+        const regionColors = d3.scaleOrdinal()
+          .domain(["asia", "africa", "europe", "americas"])
+          .range(["#1f77b4", "brown", "#ff7f0e", "#2ca02c"]);
+        this.chartGroup.selectAll(".circle-point")
+          .transition().duration(500)
+          .attr("fill", d =>regionColors(d.region));
+      },
+
+      updatePointRadius: function() {
+        const populationRadiusScale = d3.scaleSqrt()
+          .domain([d3.min(this.data, d => d.population), d3.max(this.data, d => d.population)])
+          .range([2, 30]);
+
+        this.chartGroup.selectAll(".circle-point")
+          .transition().duration(1000)
+          .attr("r", d => populationRadiusScale(d.population)); // Update the radius based on the population
+      },
+
+      updatePointOpacityAndBorder: function() {
+        this.chartGroup.selectAll(".circle-point")
+          .transition().duration(1000)
+          .attr("stroke", "grey")
+          .attr("stroke-width", 0.5)
+          .style("opacity", 0.75);
+
+
+      }
+
+    };
+
+
     // click paths
-    
+    $('#menu-start').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        $(this).attr('disabled', 'disabled');
+        scatterChart.init();
+      }
+    });
+    $('#menu-indication').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        scatterChart.drawAxisLabels();
+      } else {
+        scatterChart.hideAxisLabels();
+      }
+    });
+    $('#menu-shape').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        $(this).attr('disabled', 'disabled');
+        scatterChart.transitionXPointsToCircles();
+      }
+    });
+    $('#menu-color').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        $(this).attr('disabled', 'disabled');
+        scatterChart.updatePointColors();
+      }
+    });
+    $('#menu-size').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        $(this).attr('disabled', 'disabled');
+        scatterChart.updatePointRadius();
+      }
+    });
+    $('#menu-depth').on('click', function() {
+      if ($(this).is(':checked:not(:disabled)')) {
+        $(this).attr('disabled', 'disabled');
+        scatterChart.updatePointOpacityAndBorder();
+      }
+    });
+
 
   });
 </script>
+
+
+
+
 
 </body>
 </html>

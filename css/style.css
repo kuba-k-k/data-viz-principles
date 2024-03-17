@@ -11,6 +11,7 @@ body, html {
 .content-container {
     min-height: calc(100% - 56px);
 }
+
 footer {
     background-color: #f1f1f1;
     padding: 10px;
@@ -30,11 +31,25 @@ a.pointer {
   color: #800020;
 }
 
+#pointtooltip {
+  position: absolute;
+  visibility: hidden;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 12px;
+  color: #333;
+  /* Additional styles like box-shadow for better appearance */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
 /* animations */
 @keyframes blink {
   50% { opacity: 0; }
 }
-
 .typing-cursor {
   animation: blink 1s step-end infinite;
 }
