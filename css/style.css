@@ -3,6 +3,20 @@ body, html {
     margin: 0;
 }
 
+.nav-pills .nav-link.active {
+  background-color: var(--bs-secondary); /* Bootstrap 5 uses CSS variables for colors */
+  color: #fff; /* Assuming you want white text for active pills */
+}
+
+.nav-pills .nav-link {
+  color: var(--bs-secondary); /* Text color for inactive pills */
+}
+
+/* Optionally, if you want to ensure the background is white for inactive pills, you can add this: */
+.nav-pills .nav-link:not(.active) {
+  background-color: #fff; /* Or use 'background-color: transparent;' if that's your design preference */
+}
+
 .github-logo {
     height: 32px;
     width: auto;
@@ -31,6 +45,8 @@ a.pointer {
   color: #800020;
 }
 
+
+/* data viz css */
 #pointtooltip {
   position: absolute;
   visibility: hidden;
