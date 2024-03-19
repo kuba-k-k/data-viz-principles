@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Podstawy dobrej komunikacji - Wizualizacja danych: pryncypia, strategie i najlepsze praktyki</title>
 
-    <base href="https://kuba-k-k.github.io/data-viz-principles/">
+    <!--<base href="https://kuba-k-k.github.io/data-viz-principles/">-->
+    <base href="http://127.0.0.1:8000/Projects/96_Lab/Data%20Viz%20-%20Principles%20and%20Practices%20for%20Engaging%20Presentations/data-viz-principles/">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
@@ -103,7 +104,7 @@
       // init state
       window.onload = () => {
         loadComponent('navbar', 'html/navbar.html', {title: "Poznaj swoich odbiorców"});
-        loadComponent('footer', 'html/footer.html', {prevpage: "", nextpage: "topics/visual-design-patterns/"});
+        loadComponent('footer', 'html/footer.html', {prevpage: "", nextpage: "topics/color-models/"});
         loadComponent('modal', 'html/modal.html');
 
         $("#audience-examples").hide()

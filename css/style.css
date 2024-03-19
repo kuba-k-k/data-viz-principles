@@ -57,8 +57,44 @@ a.pointer {
   text-align: left;
   font-size: 12px;
   color: #333;
-  /* Additional styles like box-shadow for better appearance */
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* Chrome, Safari */
+input[type="range"].form-range::-webkit-slider-thumb {
+  background-color: var(--bs-secondary);
+  -webkit-appearance: none;
+  margin-top: -9px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+}
+/* Firefox */
+input[type="range"].form-range::-moz-range-thumb {
+  background-color: var(--bs-secondary);
+  border: none;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+}
+/* IE and Edge */
+input[type="range"].form-range::-ms-thumb {
+  background-color: var(--bs-secondary);
+  border: none;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+}
+/* track for WebKit browsers */
+input[type="range"].form-range::-webkit-slider-runnable-track {
+  background-color: #ddd;
+  height: 2px;
+}
+
+.color-display {
+  width: 100px;
+  height: 100px;
 }
 
 
