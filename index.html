@@ -494,7 +494,7 @@
     <!-- practical use of data visualization concepts -->
     <hr>
     <div class="content-container px-lg-5 py-3">
-      <h1 id="meaning-of-colors" class="display-5 ps-5 pb-1">Praktyczne zastosowanie konceptów wizualizacji danych</h1>
+      <h1 id="practical-use-of-data-viz-concepts" class="display-5 ps-5 pb-1">Praktyczne zastosowanie konceptów wizualizacji danych</h1>
 
       <div class="row pt-2 px-5">
         <div class="col-3">
@@ -507,7 +507,8 @@
             <label class="form-check-label h4" for="practice-menu-annotations">Adnotacje</label>
           </div>
           <div id="practice-menu-annotations-details" class="pb-3 w-75" style="padding-left: 25px;">
-            <span id="practice-menu-annotations-ticks-button" data-checked="0" class="border rounded bg-light text-secondary px-2 me-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Znaczniki</span><span id="practice-menu-annotations-axes-button" data-checked="0" class="border rounded bg-light text-secondary px-2 ms-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Osie</span>
+            <span id="practice-menu-annotations-ticks-button" data-checked="0" class="border rounded bg-light text-secondary px-2 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Znaczniki</span>
+            <span id="practice-menu-annotations-axes-button" data-checked="0" class="border rounded bg-light text-secondary px-2 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Osie</span>
           </div>
           <div class="form-check">
             <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-shape">
@@ -517,12 +518,30 @@
             <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-color">
             <label class="form-check-label h4" for="practice-menu-color">Kolor</label>
           </div>
+          <div id="practice-menu-color-picker">
+            <select id="practice-menu-color-select" class="form-select form-select-sm ms-4 mb-2 w-75" aria-label=".form-select-sm">
+              <option selected value="0">Początkowy</option>
+              <option value="1">Achromatyczny</option>
+              <option value="2">Achromatyczny z akcentem</option>
+              <option value="3">Monochromatyczny</option>
+              <option value="4">Pokrewna fuzja</option>
+              <option value="5">Pokrewna fuzja z akcentem</option>
+              <option value="6">Starcie</option>
+              <option value="7">Dopełniajacy</option>
+              <option value="8">Reguła rombu</option>
+              <option value="9">Przeciwstawny rozszczepiony</option>
+              <option value="10">Triada</option>
+              <option value="11">Tetrada</option>
+            </select>
+          </div>
           <div class="form-check">
             <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-scale">
             <label class="form-check-label h4" for="practice-menu-scale">Skala</label>
           </div>
           <div id="practice-menu-scale-details" class="pb-3 w-75" style="padding-left: 25px;">
-            <span id="practice-menu-scale-points-button" data-checked="0" class="border rounded bg-light text-secondary px-2 me-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Punkty</span><span id="practice-menu-scale-xaxis-button" data-checked="0" class="border rounded bg-light text-secondary px-2 ms-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">X (liniowa)</span>
+            <span id="practice-menu-scale-points-button" data-checked="0" class="border rounded bg-light text-secondary px-2 text-center small chart-menu-button" style="display: inline-block; min-width: 30%; cursor: pointer;">Punkty</span>
+            <span id="practice-menu-scale-xaxis-button" data-checked="0" class="border rounded bg-light text-secondary px-2 text-center small chart-menu-button" style="display: inline-block; min-width: 30%; cursor: pointer;">X</span>
+            <span id="practice-menu-scale-yaxis-button" data-checked="0" class="border rounded bg-light text-secondary px-2 text-center small chart-menu-button" style="display: inline-block; min-width: 30%; cursor: pointer;">Y</span>
           </div>
           <div class="form-check">
             <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-value">
@@ -531,13 +550,54 @@
           <div id="practice-menu-value-details" class="pb-3 w-75" style="padding-left: 25px;">
             <input type="range" class="form-range" id="practice-menu-value-range" min="0" max="100" value="100">
           </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-dominance">
+            <label class="form-check-label h4" for="practice-menu-dominance">Dominacja</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-depth">
+            <label class="form-check-label h4" for="practice-menu-depth">Głębia / objętość</label>
+          </div>
           <div><a id="practice-menu-again" class="pointer">(spróbuj jeszcze raz)</a></div>
         </div>
         <div class="col-9">
           <div id="pointtooltip" style="position: absolute; visibility: hidden; padding: 8px; background-color: white; border: 1px solid #ddd; border-radius: 4px; text-align: left; font-size: 12px; color: #333;"></div>
-          <div id="practice-chart" class="border" style="display: flex; justify-content: center; min-height: 400px;">
+          <div id="practice-chart" class="border" style="display: flex; justify-content: center; min-height: 400px;"></div>
+          <div id="practice-menu-depth-details" class="pt-3">
+            <div class="row">
+              <div class="col-1 text-center" style="margin-top: -6px;">
+                <a id="practice-menu-depth-play" class="h4 pointer"><i class="bi bi-play-btn-fill"></i></a>
+              </div>
+              <div class="col-10">
+                <input type="range" class="form-range" id="practice-menu-depth-range" min="1800" max="2023" value="2023">
+              </div>
+              <div class="col-1">
+                <span id="practice-menu-depth-year">2023</span>
+              </div>
+            </div>
           </div>
+          <p class="pt-3 small">Inspirowane darmowym materiałem z <a href="https://www.gapminder.org/tools/#$model$markers$bubble$encoding$frame$speed:100;;;;;&chart-type=bubbles&url=v1" target="_blank"><em>Gapminder.org</em></a>, CC-BY LICENSE</p>
         </div>
+      </div>
+    </div>
+
+    <!-- links -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="links" class="display-5 ps-5 pb-1">Więcej materiałów</h1>
+      <div class="px-5 pt-3">
+        <ul>
+          <a class="pointer" href="https://www.interaction-design.org/" target="_blank"><li class="h3">Interaction Design Foundation - szkoła projektowania online</li></a>
+          <a class="pointer" href="https://www.color-meanings.com/" target="_blank"><li class="h3">Color Meanings - serwis o znaczeniu kolorów projektanta Jacoba Olesena</li></a>
+          <a class="pointer" href="https://www.canva.com/colors/color-wheel/" target="_blank"><li class="h3">Canva / koło kolorów</li></a>
+          <a class="pointer" href="https://www.tradingview.com/" target="_blank"><li class="h3">TradingView - platforma analityczna dla traderów i inwestorów.</li></a>
+          <a class="pointer" href="https://www.gapminder.org/" target="_blank"><li class="h3">Gapminder.org - szwedzka fundacja promująca zrównoważony globalny rozwój</li></a>
+          <a class="pointer" href="http://poppyfield.org/" target="_blank"><li class="h3">Poppy Field - projekt wizualny, refleksja nad życiem ludzkim straconym na wojnach</li></a>
+          <a class="pointer" href="https://musicmap.info/" target="_blank"><li class="h3">MusicMap - projekt wizualny przedstawiający genealogię popularnych gatunków muzycznych</li></a>
+          <a class="pointer" href="https://informationisbeautiful.net/" target="_blank"><li class="h3">Information is Beautiful - serwis Davida McCandlessa, autora bestsellerowych książek z infografikami</li></a>
+
+
+        </ul>
       </div>
     </div>
 

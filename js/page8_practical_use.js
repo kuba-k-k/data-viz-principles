@@ -1,7 +1,9 @@
 // init
-$("#practice-menu-annotations-details").hide()
-$("#practice-menu-scale-details").hide()
-$("#practice-menu-value-details").hide()
+$("#practice-menu-annotations-details").hide();
+$("#practice-menu-scale-details").hide();
+$("#practice-menu-value-details").hide();
+$("#practice-menu-depth-details").hide();
+$("#practice-menu-color-picker").hide();
 
 
 // gapminder-like tool & clicks
@@ -16,6 +18,8 @@ $(document).ready(function() {
     height: chartContainer.clientHeight,
     x: null,
     y: null,
+    rScale: null,
+    colorScale: null,
     year: 2023,
     data: null,
     data_filtered: null,
@@ -59,16 +63,15 @@ $(document).ready(function() {
         d.life_expectancy = +d.life_expectancy;
         d.population = +d.population;
       });
-      const data2023 = this.data.filter(d => +d.year === 2023);
+      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
 
       // scales
       this.x = d3.scaleLinear()
-        //.domain([d3.min(data2023, d => d.gdp_per_capita), d3.max(data2023, d => d.gdp_per_capita*1.025)])
         .domain([d3.min(this.data, d => d.gdp_per_capita), d3.max(this.data, d => d.gdp_per_capita*1.025)])
         .range([0, this.width]);
 
       this.y = d3.scaleLinear()
-        .domain([d3.min(this.data, d => d.life_expectancy), d3.max(this.data, d => d.life_expectancy*1.1)])
+        .domain([0, d3.max(this.data, d => d.life_expectancy*1.1)])
         .range([this.height, 0]);
 
       // axes
@@ -114,8 +117,8 @@ $(document).ready(function() {
     drawAxisTitles: function() {
       this.chartGroup.append("text")
         .attr("class", "x axis-label")
-        .attr("text-anchor", "end")
-        .attr("x", this.width / 2 + 60)
+        .attr("text-anchor", "middle")
+        .attr("x", this.width / 2)
         .attr("y", this.height + 40)
         .text("PKB na mieszkańca")
         .style("opacity", 0)
@@ -160,7 +163,7 @@ $(document).ready(function() {
     },
 
     transitionXPointsToCircles: function() {
-      const data2023 = this.data.filter(d => +d.year === 2023);
+      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val() );
 
       const gdpFormat = d3.format(",.0f");
       const lifeExpectancyFormat = d3.format(".1f");
@@ -176,7 +179,7 @@ $(document).ready(function() {
 
         // Now, proceed to add circle elements for each data point
         this.chartGroup.selectAll(".circle-point")
-          .data(data2023) // Assuming you store the filtered 2023 data in the object
+          .data(data2023, d => d.country_code) // Assuming you store the filtered 2023 data in the object
           .enter().append("circle") // Append circle elements
             .attr("class", "circle-point")
             .attr("cx", d => this.x(d.gdp_per_capita))
@@ -201,63 +204,81 @@ $(document).ready(function() {
       }).catch(error => console.error("Transition failed", error));
     },
 
-    updatePointColors: function() {
-      const regionColors = d3.scaleOrdinal()
+    updatePointColors: function(option) {
+
+      color_ranges = {
+        0: ["yellow", "saddlebrown", "pink", "red"], // initial
+        1: ["#4d4d4d", "#808080", "#b3b3b3", "#e6e6e6"], // achromatic
+        2: ["#4d4d4d", "#808080", "#b3b3b3", "#FF4500"], // accented achromatic
+        3: ["#004d99", "#0080ff", "#66b3ff", "#cce6ff"], // monochromatic
+        4: ["#1ECBE1", "#1E6AE1", "#1EE196", "#1EE135"], // analogous
+        5: ["#1ECBE1", "#1E6AE1", "#1EE196", "#E2501D"], // accented analogous
+        6: ["#1ECBE1", "#331EE1", "#E11ECD", "#E1321E"], // clash
+        7: ["#32CD32", "#CD32CD", "#CD3232", "#32CDCD"], // complementary
+        8: ["#CA35BA", "#35CA45", "#3645C9", "#C9BA36"], // diamond rule
+        9: ["#23DCDB", "#24DC23", "#DC2381", "#7E23DC"], // split complementary
+        10: ["#F10E6B", "#6BF10E", "#0E6BF1", "#808080"], // triad
+        11: ["#07C7F8", "#B107F8", "#F83807", "#4EF807"], // tetrad
+      }
+
+      this.colorScale = d3.scaleOrdinal()
         .domain(["asia", "africa", "europe", "americas"])
-        .range(["#1f77b4", "brown", "#ff7f0e", "#2ca02c"]);
+        .range(color_ranges[option]);
 
       this.chartGroup.selectAll(".circle-point")
         .transition().duration(500)
-        .attr("fill", d =>regionColors(d.region));
+        .attr("fill", d => this.colorScale(d.region));
 
+      const legendSpacing = 4;
+      const legendRectSize = 12;
+      const legendX = 70;
+      const legendY = this.height + 10;
 
-      const legendSpacing = 4; // Spacing between legend entries
-      const legendRectSize = 12; // The size of the legend color box
-      const legendX = 70; // Positioning the legend on the right
-      const legendY = this.height + 10; // Starting position of the legend
+      var colorScaleDomainLength = this.colorScale.domain().length;
 
-      const legend = this.svg.selectAll('.legend') // Select all legend elements
+      this.svg.selectAll('.legend').remove()
+      const legend = this.svg.selectAll('.legend')
         .style("opacity", 1)
-        .data(regionColors.domain()) // Bind domain data
-        .enter() // For each data point in the domain
-        .append('g') // Append a 'g' element
-        .attr('class', 'legend') // With class 'legend'
+        .data(this.colorScale.domain())
+        .enter()
+        .append('g')
+        .attr('class', 'legend')
         .attr('transform', function(d, i) {
           const height = legendRectSize + legendSpacing;
-          const offset = height * regionColors.domain().length / 2;
-          const horz = legendX; // horizontal position
+          const offset = height * colorScaleDomainLength / 2;
+          const horz = legendX;
           const vert = i * height + legendY;
-          return `translate(${horz},${vert - offset})`; // vertical position, centered
+          return `translate(${horz},${vert - offset})`;
         });
 
-      legend.append('rect') // Append a rectangle
+      legend.append('rect')
         .attr("class", "legend-box")
-        .attr('width', legendRectSize) // Width of the rectangle
-        .attr('height', legendRectSize) // Height of the rectangle
-        .style('fill', regionColors) // Fill using the regionColors scale
-        .style('stroke', regionColors) // Border using the same color
+        .attr('width', legendRectSize)
+        .attr('height', legendRectSize)
+        .style('fill', this.colorScale)
+        .style('stroke', this.colorScale)
         .style("opacity", 0)
           .transition().duration(1000)
           .style("opacity", 1);
 
-      legend.append('text') // Append a text element
+      legend.append('text')
         .style("opacity", 0)
         .attr("font-size", "10px")
-        .attr('x', legendRectSize + legendSpacing) // X position to the right of the square
-        .attr('y', legendRectSize - legendSpacing) // Y position
-        .text(d => d.charAt(0).toUpperCase() + d.slice(1)) // Capitalize the first letter
+        .attr('x', legendRectSize + legendSpacing)
+        .attr('y', legendRectSize - legendSpacing + 2)
+        .text(d => d.charAt(0).toUpperCase() + d.slice(1))
           .transition().duration(500)
           .style("opacity", 1);
     },
 
     updatePointRadius: function() {
-      const populationRadiusScale = d3.scaleSqrt()
+      this.rScale = d3.scaleSqrt()
         .domain([d3.min(this.data, d => d.population), d3.max(this.data, d => d.population)])
         .range([2, 30]);
 
       this.chartGroup.selectAll(".circle-point")
         .transition().duration(1000)
-        .attr("r", d => populationRadiusScale(d.population)); // Update the radius based on the population
+        .attr("r", d => this.rScale(d.population));
     },
 
     removePointRadius: function() {
@@ -266,11 +287,17 @@ $(document).ready(function() {
         .attr("r", 2);
     },
 
-    changeXAxisToLog: function() {
-      const data2023 = this.data.filter(d => +d.year === 2023);
-      this.x = d3.scaleLog()
-          .domain([d3.min(this.data, d => Math.max(1, d.gdp_per_capita)), d3.max(this.data, d => d.gdp_per_capita * 1.025)])
-          .range([0, this.width]);
+    changeXAxisScale: function(type) {
+      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      if (type=="log"){
+        this.x = d3.scaleLog()
+            .domain([d3.min(this.data, d => Math.max(1, d.gdp_per_capita)), d3.max(this.data, d => d.gdp_per_capita * 1.025)])
+            .range([0, this.width]);
+      } else if (type=="line") {
+        this.x = d3.scaleLinear()
+            .domain([d3.min(this.data, d => Math.max(1, d.gdp_per_capita)), d3.max(this.data, d => d.gdp_per_capita * 1.025)])
+            .range([0, this.width]);
+      };
 
       this.svg.selectAll(".x-axis")
         .transition()
@@ -281,23 +308,34 @@ $(document).ready(function() {
         .transition()
         .duration(1000)
         .attr("cx", d => this.x(d.gdp_per_capita));
+
+      this.chartGroup.select(".x.axis-label")
+        .transition()
+        .duration(1000)
+        .text(() => { return (type=="log") ? "PKB na mieszkańca (skala logarytmiczna)" : "PKB na mieszkańca" });
     },
 
-    changeXAxisToLine: function() {
-      const data2023 = this.data.filter(d => +d.year === 2023);
-      this.x = d3.scaleLinear()
-          .domain([d3.min(this.data, d => Math.max(1, d.gdp_per_capita)), d3.max(this.data, d => d.gdp_per_capita * 1.025)])
-          .range([0, this.width]);
+    changeYAxisScale: function(type) {
+      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      if (type=="fit") {
+        this.y = d3.scaleLinear()
+          .domain([d3.min(data2023, d => d.life_expectancy)*0.9, d3.max(data2023, d => d.life_expectancy*1.1)])
+          .range([this.height, 0]);
+      } else if (type=="full") {
+        this.y = d3.scaleLinear()
+          .domain([0, d3.max(this.data, d => d.life_expectancy*1.1)])
+          .range([this.height, 0]);
+      }
 
-      this.svg.selectAll(".x-axis")
+      this.svg.selectAll(".y-axis")
         .transition()
         .duration(1000)
-        .call(d3.axisBottom(this.x));
+        .call(d3.axisLeft(this.y));
 
       this.svg.selectAll(".circle-point")
         .transition()
         .duration(1000)
-        .attr("cx", d => this.x(d.gdp_per_capita));
+        .attr("cy", d => this.y(d.life_expectancy));
     },
 
     updatePointOpacityAndBorder: function(opacity) {
@@ -309,6 +347,65 @@ $(document).ready(function() {
         .transition().duration(1)
         .style("opacity", opacity / 100);
     },
+
+    changeYear: function() {
+      const gdpFormat = d3.format(",.0f");
+      const lifeExpectancyFormat = d3.format(".1f");
+
+      console.log($('#practice-menu-depth-range').val())
+      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+
+      const circlePoints = this.svg.selectAll(".circle-point")
+        .data(data2023, d => d.country_code);
+
+      circlePoints.enter().append("circle")
+        .attr("class", "circle-point")
+        .attr("r", 0)
+        .attr("fill", d => this.colorScale(d.region))
+        .attr("cx", d => this.x(d.gdp_per_capita))
+        .attr("cy", d => this.y(d.life_expectancy))
+        .transition().duration(50)
+        .attr("r", d => this.rScale(d.population))
+        .attr("stroke", "grey")
+        .attr("stroke-width", 0.5)
+        .on("mouseover", function(event, d) {
+          d3.select("#pointtooltip")
+            .style("visibility", "visible")
+            .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+            .style("top", (event.pageY - 10) + "px")
+            .style("left", (event.pageX + 10) + "px");
+        })
+        .on("mouseout", function() {
+          d3.select("#pointtooltip").style("visibility", "hidden");
+        });
+
+      circlePoints.transition().duration(50)
+        .attr("r", d => this.rScale(d.population))
+        .attr("cx", d => this.x(d.gdp_per_capita))
+        .attr("cy", d => this.y(d.life_expectancy));
+
+      circlePoints.exit()
+        .transition().duration(50)
+        .attr("r", 0)
+        .remove();
+    },
+
+    selectPoland: function() {
+      this.svg.selectAll(".circle-point")
+        .transition().duration(1000)
+        .style("fill-opacity", function(d) { return d.country_code === 'pol' ? 1.0 : 0.25; })
+        .style("stroke", function(d) { return d.country_code === 'pol' ? "red" : "grey"; })
+        .style("stroke-width", function(d) { return d.country_code === 'pol' ? 2 : 0.5; });
+    },
+
+    unselectPoland: function() {
+      this.svg.selectAll(".circle-point")
+        .transition().duration(1000)
+        .style("fill-opacity", 0.7)
+        .style("stroke", "grey")
+        .style("stroke-width", 0.5);
+    },
+
   };
 
 
@@ -361,8 +458,13 @@ $(document).ready(function() {
   $('#practice-menu-color').on('click', function() {
     if ($(this).is(':checked:not(:disabled)')) {
       $(this).attr('disabled', 'disabled');
-      scatterChart.updatePointColors();
+      $("#practice-menu-color-picker").slideDown();
+      scatterChart.updatePointColors(0);
     }
+  });
+
+  $('#practice-menu-color-select').change(function(){
+    scatterChart.updatePointColors(parseInt($(this).val()));
   });
 
   $('#practice-menu-scale').on('click', function() {
@@ -386,15 +488,25 @@ $(document).ready(function() {
 
   $('#practice-menu-scale-xaxis-button').on('click', function() {
     if ($(this).attr("data-checked")==0) {
-      scatterChart.changeXAxisToLog();
+      scatterChart.changeXAxisScale("log");
       $(this).attr("data-checked", "1");
       $(this).removeClass("bg-light").addClass("bg-success").removeClass("text-secondary").addClass("text-white");
-      $(this).html("X (log)");
     } else {
-      scatterChart.changeXAxisToLine();
+      scatterChart.changeXAxisScale("line");
       $(this).attr("data-checked", "0");
       $(this).removeClass("bg-success").addClass("bg-light").removeClass("text-white").addClass("text-secondary");
-      $(this).html("X (liniowa)");
+    }
+  });
+
+  $('#practice-menu-scale-yaxis-button').on('click', function() {
+    if ($(this).attr("data-checked")==0) {
+      scatterChart.changeYAxisScale("fit");
+      $(this).attr("data-checked", "1");
+      $(this).removeClass("bg-light").addClass("bg-success").removeClass("text-secondary").addClass("text-white");
+    } else {
+      scatterChart.changeYAxisScale("full");
+      $(this).attr("data-checked", "0");
+      $(this).removeClass("bg-success").addClass("bg-light").removeClass("text-white").addClass("text-secondary");
     }
   });
 
@@ -407,6 +519,43 @@ $(document).ready(function() {
 
   $('#practice-menu-value-range').on('input', function() {
     scatterChart.updatePointOpacityAndBorder($(this).val());
+  });
+
+  $('#practice-menu-depth').on('click', function() {
+    if ($(this).is(':checked:not(:disabled)')) {
+      $(this).attr('disabled', 'disabled');
+      $("#practice-menu-depth-details").slideDown();
+    }
+  });
+
+  $('#practice-menu-depth-range').on('input', function() {
+    $("#practice-menu-depth-year").html($(this).val());
+    scatterChart.changeYear();
+  });
+
+  $('#practice-menu-dominance').on('click', function() {
+    if ($(this).is(':checked:not(:disabled)')) {
+      $("#practice-menu-value-range").val(25);
+      scatterChart.selectPoland();
+    } else {
+      $("#practice-menu-value-range").val(70);
+      scatterChart.unselectPoland();
+    }
+  });
+
+  $('#practice-menu-depth-play').click(function() {
+      var $range = $('#practice-menu-depth-range');
+      var maxVal = parseInt($range.attr('max'), 10);
+
+      var currentValue = 1799;
+      function moveRangeAYear() {
+          if (currentValue < maxVal) {
+              currentValue++;
+              $range.val(currentValue).trigger('input');
+              setTimeout(moveRangeAYear, 50);
+          }
+      }
+      moveRangeAYear();
   });
 
 });
