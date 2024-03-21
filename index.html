@@ -10,11 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
     <script src="js/script.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
+
+
 
   </head>
 
@@ -67,10 +72,10 @@
 
     <!-- know your audience -->
     <hr>
-    <div class="content-container px-3 py-3">
-      <h1 id="know-your-audience" class="display-5 ps-3 pb-3">Poznaj swoich odbiorców</h1>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="know-your-audience" class="display-5 ps-5 pb-3">Poznaj swoich odbiorców</h1>
       <div class="row mx-1" style="min-height: calc(100% - 56px);">
-        <div class="col-6 pe-3">
+        <div class="col-6 ps-5 pe-3">
           <ul>
             <li>
               <h3>Kim są Twoi odbiorcy?</h3>
@@ -143,40 +148,67 @@
 
     <!-- elements of visual design -->
     <hr>
-    <div class="content-container px-3 pt-3 pb-4">
-      <h1 id="elements-of-visual-design" class="display-5 ps-3 pb-1">Elementy projektowania graficznego</h1>
+    <div class="content-container px-lg-5 pt-3 pb-4">
+      <h1 id="elements-of-visual-design" class="display-5 ps-5 pb-1">Elementy projektowania graficznego</h1>
       <p class="lead pt-2 px-5">Każdy produkt – od oprogramowania w formie stron internetowych czy aplikacji, po produkty sprzętowe, takie jak tostery i suszarki do włosów – składa się z podstawowych elementów projektu graficznego. Elementy te są narzędziami, których projektanci, używają w codziennej pracy, a podstawowa ich znajomość jest w tej pracy niezbędna.</p>
 
       <div class="row pt-2 px-5">
         <div class="col-3">
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-line">
-            <label class="form-check-label h3" for="element-line">Linia</label>
+            <label class="form-check-label h3" for="element-line">
+              Linia
+              <a class="pointer" data-bs-content="Linia to najbardziej podstawowy element projektu wizualnego. Z linii możemy tworzyć kształty, a powtarzając je, możemy tworzyć wzory i tekstury." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Linia"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 11px; font-size: 2vh;"></i></a>
+            </label>
+
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-shape">
-            <label class="form-check-label h3" for="element-shape">Kształt</label>
+            <label class="form-check-label h3" for="element-shape">
+              Kształt
+              <a class="pointer" data-bs-content="Kształty to samodzielne obszary, zwykle utworzone przez linie (chociaż można je również utworzyć przy użyciu innego koloru lub tekstury). Kształt ma dwa wymiary: długość i szerokość." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Kształt"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
+
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-space">
-            <label class="form-check-label h3" for="element-space">Pusta przestrzeń</label>
+            <label class="form-check-label h3" for="element-space">
+              Pusta przestrzeń
+              <a class="pointer" data-bs-content="Pusta przestrzeń to pusty (biały) obszar wokół kształtu." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Pusta przestrzeń"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
+
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-value">
-            <label class="form-check-label h3" for="element-value">Wartość</label>
+            <label class="form-check-label h3" for="element-value">
+              Wartość
+              <a class="pointer" data-bs-content="Wartość to światło i cień. Projekt o dużym kontraście wartości (tj. taki, który wykorzystuje wartości jasne i ciemne) stwarza wrażenie przejrzystości, podczas gdy projekt o podobnych wartościach stwarza wrażenie subtelności." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Wartość"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
+
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-volume">
-            <label class="form-check-label h3" for="element-volume">Objętość</label>
+            <label class="form-check-label h3" for="element-volume">
+              Objętość
+              <a class="pointer" data-bs-content="Objętość dotyczy obiektów trójwymiarowych - mają długość, szerokość i głębokość." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Objętość"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
+
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-color">
-            <label class="form-check-label h3" for="element-color">Kolor</label>
+            <label class="form-check-label h3" for="element-color">
+              Kolor
+              <a class="pointer" data-bs-content="O modelach i znaczeniu kolorów - poniżej." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Kolr"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="element-texture">
-            <label class="form-check-label h3" for="element-texture">Tekstura</label>
+            <label class="form-check-label h3" for="element-texture">
+              Tekstura
+              <a class="pointer" data-bs-content="Tekstura to rodzaj powierzchni obiektu. Teksturę w projektowaniu 2D można utworzyć poprzez powtarzający się wzór linii lub przy użyciu sąsiadujących obrazów." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Tekstura"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 9px; font-size: 2vh;"></i></a>
+            </label>
           </div>
+
           <div><a id="element-again" class="pointer">(spróbuj jeszcze raz)</a></div>
         </div>
         <div class="col-9">
@@ -185,42 +217,64 @@
           </div>
         </div>
       </div>
+      <p class="px-5 pt-3 small">Inspirowane <a href="https://www.interaction-design.org/literature/article/the-building-blocks-of-visual-design" target="_blank"><em>The Key Elements & Principles of Visual Design. Interaction Design Foundation - IxDF</em></a>. Teo, Y. S. (2022, September 29).</p>
     </div>
 
     <!-- principles of visual design -->
     <hr>
-    <div class="content-container px-3 pt-3 pb-4">
-      <h1 id="principles-of-visual-design" class="display-5 ps-3 pb-1">Pryncypia projektowania graficznego</h1>
+    <div class="content-container px-lg-5 pt-3 pb-4">
+      <h1 id="principles-of-visual-design" class="display-5 ps-5 pb-1">Pryncypia projektowania graficznego</h1>
       <p class="lead pt-2 px-5">Elementy projektu graficznego — linia, kształt, pusta przestrzeń, objętość, wartość, kolor i tekstura — <em>opisują</em> elementy składowe estetyki produktu. Z drugiej strony zasady projektowania mówią nam, <em>jak</em> te elementy mogą i powinny ze sobą współgrać, aby uzyskać najlepsze rezultaty. Wiele z tych zasad jest ze sobą powiązane lub uzupełnia się.</p>
       <div class="row pt-2 px-5">
         <div class="col-3">
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-unity">
-            <label class="form-check-label h3" for="principle-unity">Harmonia</label>
+            <label class="form-check-label h3" for="principle-unity">
+              Harmonia
+              <a class="pointer" title="Harmonia" data-bs-content="Harmonia to zgodność, wzajemne dopełnianie się lub właściwe proporcje." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-gestalt">
-            <label class="form-check-label h3" for="principle-gestalt">Gestalt</label>
+            <label class="form-check-label h3" for="principle-gestalt">
+              Percepcja
+              <a class="pointer" title="Percepcja" data-bs-content="Percepcja odnosi się do naszej tendencji do postrzegania w pierwszej kolejności sumy wszystkich części, a dopiero potem poszczególnych elementów (linii, tekstur, itd.)." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-hierarchy">
-            <label class="form-check-label h3" for="principle-hierarchy">Hierarchia</label>
+            <label class="form-check-label h3" for="principle-hierarchy">
+              Hierarchia
+              <a class="pointer" title="Hierarchia" data-bs-content="Hierarchia pokazuje różnicę w znaczeniu elementów w projekcie. Kolor i rozmiar to najczęstsze sposoby tworzenia hierarchii." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-balance">
-            <label class="form-check-label h3" for="principle-balance">Balans</label>
+            <label class="form-check-label h3" for="principle-balance">
+              Balans
+              <a class="pointer" title="Balans" data-bs-content="Równowaga to równomierne rozmieszczenie elementów projektu. Zrównoważone projekty wydają się spokojne, stabilne i naturalne, podczas gdy niezrównoważone projekty mogą być trudniejsze w odbiorze." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-contrast">
-            <label class="form-check-label h3" for="principle-contrast">Kontrast</label>
+            <label class="form-check-label h3" for="principle-contrast">
+              Kontrast
+              <a class="pointer" title="Kontrast" data-bs-content="Kontrast używany jest, aby wyróżnić element, np. poprzez różnice w kolorze, wartości czy rozmiarze." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-scale">
-            <label class="form-check-label h3" for="principle-scale">Skala</label>
+            <label class="form-check-label h3" for="principle-scale">
+              Skala
+              <a class="pointer" title="Skala" data-bs-content="Skala opisuje względne rozmiary elementów projektu. Używając skali, możesz podkreślić element, czyniąc go większym niż inne elementy, które się pojawiają razem z nim." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input h5 mt-2" type="checkbox" value="" id="principle-dominance">
-            <label class="form-check-label h3" for="principle-dominance">Dominacja</label>
+            <label class="form-check-label h3" for="principle-dominance">
+              Dominacja
+              <a class="pointer" title="Dominacja" data-bs-content="Dominacja skupia uwagę na jednym elemencie. Aby to osiągnąć, możemy użyć koloru, kształtu, kontrastu, skali i/lub położenia." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 10px; font-size: 2vh;"></i></a>
+            </label>
           </div>
           <div><a id="principle-again" class="pointer">(spróbuj jeszcze raz)</a></div>
         </div>
@@ -230,12 +284,13 @@
           </div>
         </div>
       </div>
+      <p class="px-5 pt-3 small">Inspirowane <a href="https://www.interaction-design.org/literature/article/the-building-blocks-of-visual-design" target="_blank"><em>The Key Elements & Principles of Visual Design. Interaction Design Foundation - IxDF</em></a>. Teo, Y. S. (2022, September 29).</p>
     </div>
 
     <!-- color models -->
     <hr>
-    <div class="content-container px-3 py-3">
-      <h1 id="color-models" class="display-5 ps-3 pb-1">Modele kolorów</h1>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="color-models" class="display-5 ps-5 pb-1">Modele kolorów</h1>
       <div class="pt-2 px-5">
         <p class="lead">Model kolorów jest używany do reprezentacji kolorów jako zbiorów wartości liczbowych, zwykle w formacie trzy- lub czteroskładnikowym. Ta koncepcja pozwala na precyzyjny opis i reprodukcję kolorów na różnych urządzeniach i nośnikach, stanowiąc podstawowy element w różnych dziedzinach, od obrazowania cyfrowego i projektowania graficznego po technologie druku.</p>
 
@@ -354,19 +409,19 @@
 
     <!-- meaning of colors -->
     <hr>
-    <div class="content-container px-3 py-3">
-      <h1 id="meaning-of-colors" class="display-5 ps-3 pb-1">Znaczenie kolorów</h1>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="meaning-of-colors" class="display-5 ps-5 pb-1">Znaczenie kolorów</h1>
       <div class="pt-2 px-5">
         <p class="lead">Kolory niosą głebokie, psychologiczne implikacje i w znacznym stopniu wpływają na emocje i działania. Jako istotna forma komunikacji niewerbalnej, przekazują komunikaty i prowokują określone reakcje bez konieczności użycia słów. W różnych kontekstach, od projektowania po marketing, kolory wpływają na procesy decyzyjne, często mając kluczową rolę w kształtowaniu preferencji konsumentów. Warto pamiętać że znaczenie kolorów może być znacząco inne w różnych kontekstach kulturowych.</p>
       </div>
 
       <div class="px-5 pt-2">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselMeaningOfColors" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide-to="3" aria-label="Slide 4"></button>
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -398,24 +453,94 @@
               </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselMeaningOfColors" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+        <p class="pt-3 small">Więcej o znaczeniach kolorów, w tym o różnicach kulturowych, przeczytasz tutaj <a href="https://www.color-meanings.com/" target="_blank" class="pointer">https://www.color-meanings.com/</a>.</p>
+      </div>
+    </div>
 
-        <ul class="pt-3">
-          <li>
-            Więcej o znaczeniach kolorów, w tym o różnicach kulturowych, przeczytasz tutaj <a href="https://www.color-meanings.com/" target="_blank" class="pointer">https://www.color-meanings.com/</a>.
-          </li>
-        </ul>
+    <!-- Infographics -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="infographics" class="display-5 ps-5 pb-1">Infografika</h1>
+      <div class="pt-2 px-5">
+        <p class="lead">Infografika to cenne narzędzie komunikacji wizualnej. Jest to zestawienie obrazów, wizualizacji danych, takich jak wykresy kołowe i słupkowe, oraz minimalnej ilości tekstu, które to razem zapewniają łatwy do zrozumienia i przystępny przegląd tematu.</p>
       </div>
 
+      <div id="infographics-dump" class="grid px-5">
+        <div class="grid-item"><img src="img/infographics_snake-oil.png" class="figure-img" alt="Snake Oil? - David McCandless, Dr Stephanie Starling, Tom Evans" data-footer="<a class='pointer' href='https://rethinkingvis.com/visualizations/57' target='_blank'>https://rethinkingvis.com/visualizations/57</a>"></div>
+        <div class="grid-item "><img src="img/infographics_coastline-farming-slavery.jfif" class="figure-img" alt="How a coastline 100 million years ago influences modern election results in Alabama - Ryan Starkey" data-footer="<a class='pointer' href='https://starkeycomics.com/2021/06/11/how-a-coastline-100-million-years-ago-influences-modern-election-results-in-alabama/' target='_blank'>https://starkeycomics.com/2021/06/11/how-a-coastline-100-million-years-ago-influences-modern-election-results-in-alabama/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_ikigai.png" class="figure-img" alt="Ikigai - Marc Winn" data-footer="<a class='pointer' href='https://informationisbeautiful.net/visualizations/ikigai-japanese-concept-to-enhance-work-life-sense-of-worth/' target='_blank'https://informationisbeautiful.net/visualizations/ikigai-japanese-concept-to-enhance-work-life-sense-of-worth/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_remedy-for-hangover.png" class="figure-img" alt="Worlds Best Hangover Cure - David McCandless" data-footer="<a class='pointer' href='https://informationisbeautiful.net/visualizations/worlds-best-hangover-cure/' target='_blank'https://informationisbeautiful.net/visualizations/worlds-best-hangover-cure/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_military-career.jfif" class="figure-img" alt="Wojskowy Model Kariery - Roman Polko"></div>
+        <div class="grid-item"><img src="img/infographics_lot-itinerary.jfif" class="figure-img" alt="Ostatni, przedwojenny rozkład PLL LOT" data-footer="<a class='pointer' href='https://twitter.com/LOTPLAirlines/status/1344247471761989635' target='_blank'>https://twitter.com/LOTPLAirlines/status/1344247471761989635</a>"></div>
+        <div class="grid-item"><img src="img/infographics_most-violent-cities.webp" class="figure-img" alt="Most Violent Cities - Federica Fragapane" data-footer="<a class='pointer' href='https://www.behance.net/gallery/70033395/The-Most-Violent-Cities' target='_blank'>https://www.behance.net/gallery/70033395/The-Most-Violent-Cities</a>"></div>
+        <div class="grid-item"><img src="img/infographics_city-of-anarchy.jfif" class="figure-img" alt="City of Anarchy - Adolfo Arranz" data-footer="<a class='pointer' href='https://www.perdigallos.com/kwc' target='_blank'>https://www.perdigallos.com/kwc</a>"></div>
+        <div class="grid-item"><img src="img/infographics_oldest-companies.webp" class="figure-img" alt="The Oldest Company in (Almost) Every Country - BusinessFinancing.co.uk" data-footer="<a class='pointer' href='https://businessfinancing.co.uk/the-oldest-company-in-almost-every-country/' target='_blank'>https://businessfinancing.co.uk/the-oldest-company-in-almost-every-country/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_music-map.png" class="figure-img" alt="Music Map - Kwinten Crauwels / MusicMap.info" data-footer="<a class='pointer' href='https://musicmap.info/' target='_blank'>https://musicmap.info/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_tree-of-languages.jpg" class="figure-img" alt="Old World Language Families - Minna Sundberg" data-footer="<a class='pointer' href='https://www.theguardian.com/education/gallery/2015/jan/23/a-language-family-tree-in-pictures' target='_blank'>https://www.theguardian.com/education/gallery/2015/jan/23/a-language-family-tree-in-pictures</a>"></div>
+        <div class="grid-item"><img src="img/infographics_poppy-field.png" class="figure-img" alt="Poppy Field - Valentina D’Efilippo, Nicolas Pigelet" data-footer="<a class='pointer' href='http://poppyfield.org/' target='_blank'>http://poppyfield.org/</a>"></div>
+        <div class="grid-item"><img src="img/infographics_christmas-gift-bringers-europe.jpg" class="figure-img" alt="Christmas Gift Bringers of Europe - Jakub Marian" data-footer="<a class='pointer' href='https://jakubmarian.com/christmas-gift-bringers-of-europe/' target='_blank'>https://jakubmarian.com/christmas-gift-bringers-of-europe/</a>"></div>
+      </div>
     </div>
+
+    <!-- practical use of data visualization concepts -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="meaning-of-colors" class="display-5 ps-5 pb-1">Praktyczne zastosowanie konceptów wizualizacji danych</h1>
+
+      <div class="row pt-2 px-5">
+        <div class="col-3">
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-start">
+            <label class="form-check-label h4" for="practice-menu-start">Wykres</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-annotations">
+            <label class="form-check-label h4" for="practice-menu-annotations">Adnotacje</label>
+          </div>
+          <div id="practice-menu-annotations-details" class="pb-3 w-75" style="padding-left: 25px;">
+            <span id="practice-menu-annotations-ticks-button" data-checked="0" class="border rounded bg-light text-secondary px-2 me-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Znaczniki</span><span id="practice-menu-annotations-axes-button" data-checked="0" class="border rounded bg-light text-secondary px-2 ms-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Osie</span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-shape">
+            <label class="form-check-label h4" for="practice-menu-shape">Kształt</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-color">
+            <label class="form-check-label h4" for="practice-menu-color">Kolor</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-scale">
+            <label class="form-check-label h4" for="practice-menu-scale">Skala</label>
+          </div>
+          <div id="practice-menu-scale-details" class="pb-3 w-75" style="padding-left: 25px;">
+            <span id="practice-menu-scale-points-button" data-checked="0" class="border rounded bg-light text-secondary px-2 me-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">Punkty</span><span id="practice-menu-scale-xaxis-button" data-checked="0" class="border rounded bg-light text-secondary px-2 ms-1 text-center small chart-menu-button" style="display: inline-block; min-width: 45%; cursor: pointer;">X (liniowa)</span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-value">
+            <label class="form-check-label h4" for="practice-menu-value">Wartość</label>
+          </div>
+          <div id="practice-menu-value-details" class="pb-3 w-75" style="padding-left: 25px;">
+            <input type="range" class="form-range" id="practice-menu-value-range" min="0" max="100" value="100">
+          </div>
+          <div><a id="practice-menu-again" class="pointer">(spróbuj jeszcze raz)</a></div>
+        </div>
+        <div class="col-9">
+          <div id="pointtooltip" style="position: absolute; visibility: hidden; padding: 8px; background-color: white; border: 1px solid #ddd; border-radius: 4px; text-align: left; font-size: 12px; color: #333;"></div>
+          <div id="practice-chart" class="border" style="display: flex; justify-content: center; min-height: 400px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Footer -->
     <div id="footer"></div>
@@ -435,7 +560,14 @@
     <script src="js/page3_elements-of-visual-design.js" charset="utf-8"></script>
     <script src="js/page4_principles-of-visual-design.js" charset="utf-8"></script>
     <script src="js/page5_color-models.js" charset="utf-8"></script>
+    <script src="js/page7_infographics.js" charset="utf-8"></script>
+    <script src="js/page8_practical_use.js" charset="utf-8"></script>
 
-
+    <script type="text/javascript">
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+      })
+    </script>
   </body>
 </html>

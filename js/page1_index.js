@@ -24,6 +24,9 @@ function typing_effect(text, identifier, callback) {
   typeWord();
 }
 
+function closePopover(element) {
+  $(element).parents('.popover').popover('hide');
+}
 
 // click paths
 $(document).ready(function() {

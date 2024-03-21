@@ -200,4 +200,5 @@ $(document).ready(function() {
         $("input[id^='element-']").removeAttr('disabled').prop('checked', false);
       });
   });
+
 });

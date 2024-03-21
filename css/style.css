@@ -50,6 +50,23 @@ a.pointer:hover {
   border-bottom: 2px solid #d73b1c;
 }
 
+a.question-tooltip > i {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 4px;
+  font-size: 2.5vh;
+}
+
+.grid-item {
+  margin: 5px;
+  width: 200px;
+}
+
+.grid-item > img {
+  width: 100%;
+  height: auto;
+}
+
 
 /* data viz css */
 #pointtooltip {
@@ -101,6 +118,12 @@ input[type="range"].form-range::-webkit-slider-runnable-track {
   height: 100px;
 }
 
+.chart-menu-button {
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
 
 /* animations */
 @keyframes blink {

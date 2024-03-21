@@ -124,7 +124,7 @@ $(document).ready(function() {
         {shape: "rect", id: "b2", x: 200, y: 75, w: 400, h: 20, c: "grey", "stroke-dasharray": "0,0", "stroke": "grey"},
         {shape: "rect", id: "b3", x: 170, y: 100, w: 460, h: 20, c: "grey", "stroke-dasharray": "0,0", "stroke": "grey"},
         {shape: "rect", id: "b4", x: 140, y: 125, w: 530, h: 20, c: "grey", "stroke-dasharray": "0,0", "stroke": "grey"},
-        {shape: "rect", id: "b5", x: 100, y: 150, w: 600, h: 200, c: "white", "stroke-dasharray": "5,5", "stroke": "grey"},
+        {shape: "rect", id: "b5", x: 100, y: 150, w: 600, h: 200, c: "white", "stroke-dasharray": "0,0", "stroke": "lightgrey"},
         {shape: "rect", id: "b6", x: 150, y: 200, w: 70, h: 70, c: "white", "stroke-dasharray": "0,0", "stroke": "grey"},
         {shape: "rect", id: "b7", x: 580, y: 200, w: 70, h: 70, c: "white", "stroke-dasharray": "0,0", "stroke": "grey"},
       ];
