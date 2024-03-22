@@ -63,7 +63,7 @@ $(document).ready(function() {
         d.life_expectancy = +d.life_expectancy;
         d.population = +d.population;
       });
-      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      const data_filtered = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
 
       // scales
       this.x = d3.scaleLinear()
@@ -89,7 +89,7 @@ $(document).ready(function() {
 
       // points
       this.chartGroup.selectAll(".point")
-        .data(data2023)
+        .data(data_filtered)
         .enter().append("text")
         .attr("class", "point")
         .attr("x", d => this.x(d.gdp_per_capita))
@@ -101,7 +101,7 @@ $(document).ready(function() {
         .on("mouseover", function(event, d) {
           d3.select("#pointtooltip")
             .style("visibility", "visible")
-            .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+            .html(`<b>${d.country}</b><br>PKB per capita: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
             .style("top", (event.pageY - 10) + "px")
             .style("left", (event.pageX + 10) + "px");
         })
@@ -120,7 +120,7 @@ $(document).ready(function() {
         .attr("text-anchor", "middle")
         .attr("x", this.width / 2)
         .attr("y", this.height + 40)
-        .text("PKB na mieszkańca")
+        .text("PKB per capita")
         .style("opacity", 0)
         .transition().duration(1000)
         .style("opacity", 1);
@@ -163,7 +163,7 @@ $(document).ready(function() {
     },
 
     transitionXPointsToCircles: function() {
-      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val() );
+      const data_filtered = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val() );
 
       const gdpFormat = d3.format(",.0f");
       const lifeExpectancyFormat = d3.format(".1f");
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
         // Now, proceed to add circle elements for each data point
         this.chartGroup.selectAll(".circle-point")
-          .data(data2023, d => d.country_code) // Assuming you store the filtered 2023 data in the object
+          .data(data_filtered, d => d.country_code) // Assuming you store the filtered 2023 data in the object
           .enter().append("circle") // Append circle elements
             .attr("class", "circle-point")
             .attr("cx", d => this.x(d.gdp_per_capita))
@@ -191,7 +191,7 @@ $(document).ready(function() {
             .on("mouseover", function(event, d) {
               d3.select("#pointtooltip")
                 .style("visibility", "visible")
-                .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+                .html(`<b>${d.country}</b><br>PKB per capita: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
                 .style("top", (event.pageY - 10) + "px")
                 .style("left", (event.pageX + 10) + "px");
             })
@@ -288,7 +288,7 @@ $(document).ready(function() {
     },
 
     changeXAxisScale: function(type) {
-      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      const data_filtered = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
       if (type=="log"){
         this.x = d3.scaleLog()
             .domain([d3.min(this.data, d => Math.max(1, d.gdp_per_capita)), d3.max(this.data, d => d.gdp_per_capita * 1.025)])
@@ -312,14 +312,14 @@ $(document).ready(function() {
       this.chartGroup.select(".x.axis-label")
         .transition()
         .duration(1000)
-        .text(() => { return (type=="log") ? "PKB na mieszkańca (skala logarytmiczna)" : "PKB na mieszkańca" });
+        .text(() => { return (type=="log") ? "PKB per capita (skala logarytmiczna)" : "PKB per capita" });
     },
 
     changeYAxisScale: function(type) {
-      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      const data_filtered = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
       if (type=="fit") {
         this.y = d3.scaleLinear()
-          .domain([d3.min(data2023, d => d.life_expectancy)*0.9, d3.max(data2023, d => d.life_expectancy*1.1)])
+          .domain([d3.min(data_filtered, d => d.life_expectancy)*0.9, d3.max(data_filtered, d => d.life_expectancy*1.1)])
           .range([this.height, 0]);
       } else if (type=="full") {
         this.y = d3.scaleLinear()
@@ -351,12 +351,22 @@ $(document).ready(function() {
     changeYear: function() {
       const gdpFormat = d3.format(",.0f");
       const lifeExpectancyFormat = d3.format(".1f");
+      const data_filtered = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
 
-      console.log($('#practice-menu-depth-range').val())
-      const data2023 = this.data.filter(d => +d.year == $('#practice-menu-depth-range').val());
+      if ($('#practice-menu-scale-yaxis-button').attr("data-checked")==1) {
+        const data_smooth_y_transition = this.data.filter(d => Math.abs(+d.year - $('#practice-menu-depth-range').val()) <= 10);
+        this.y = d3.scaleLinear()
+          .domain([d3.min(data_smooth_y_transition, d => d.life_expectancy)*0.9, d3.max(data_smooth_y_transition, d => d.life_expectancy*1.1)])
+          .range([this.height, 0]);
+
+        this.svg.selectAll(".y-axis")
+          .transition()
+          .duration(50)
+          .call(d3.axisLeft(this.y));
+      };
 
       const circlePoints = this.svg.selectAll(".circle-point")
-        .data(data2023, d => d.country_code);
+        .data(data_filtered, d => d.country_code);
 
       circlePoints.enter().append("circle")
         .attr("class", "circle-point")
@@ -371,7 +381,7 @@ $(document).ready(function() {
         .on("mouseover", function(event, d) {
           d3.select("#pointtooltip")
             .style("visibility", "visible")
-            .html(`<b>${d.country}</b><br>PKB na mieszkańca: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
+            .html(`<b>${d.country}</b><br>PKB per capita: $${gdpFormat(d.gdp_per_capita)}<br>Oczekiwana długość życia: ${lifeExpectancyFormat(d.life_expectancy)}`)
             .style("top", (event.pageY - 10) + "px")
             .style("left", (event.pageX + 10) + "px");
         })
