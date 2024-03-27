@@ -1,6 +1,7 @@
-body, html {
+html, body {
     height: 100%;
     margin: 0;
+    max-width: 100%;
 }
 
 .nav-pills .nav-link.active {
@@ -22,13 +23,16 @@ body, html {
 }
 
 .content-container {
-    min-height: calc(100% - 56px);
+    min-height: calc(100%);
+    max-width: 100%;
 }
 
 footer {
     background-color: #f1f1f1;
     padding: 10px;
     text-align: center;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .blockquote {
@@ -57,6 +61,87 @@ a.question-tooltip > i {
   font-size: 2.5vh;
 }
 
+.typography-image-container {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+.typography-image-overlay-top-empty {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.0);
+    color: black;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    text-align: left;
+}
+.typography-image-overlay-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.0);
+    color: white;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif; text-transform: uppercase;
+    font-size: 32px;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+.typography-image-overlay-center-empty {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    color: black;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    text-align: left;
+}
+.typography-image-overlay-center {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+    padding: 10px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 16px;
+    text-align: center;
+}
+.typography-title-empty {
+  font-family: 'Courier New', monospace;
+}
+.typography-title {
+  font-size: 24px;
+  font-variant: small-caps;
+}
+.typography-p-empty {
+  font-family: 'Courier New', monospace;
+  margin-bottom: 0px;
+}
+.typography-p-serif {
+  font-family: serif;
+}
+.typography-p {
+  font-family: sans-serif;
+  text-align: justify;
+}
+.typography-strong {
+  font-weight: bold;
+}
+.typography-em {
+  font-style: italic;
+}
+
+/* image grid */
 .grid-item {
   margin: 5px;
   width: 200px;
@@ -67,6 +152,9 @@ a.question-tooltip > i {
   height: auto;
 }
 
+.small-small {
+  font-size: 0.6em;
+}
 
 /* data viz css */
 #pointtooltip {

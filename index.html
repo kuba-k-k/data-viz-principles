@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizualizacja danych: pryncypia, strategie i najlepsze praktyki</title>
 
-    <!--<base href="http://127.0.0.1:8000/Projects/96_Lab/Data%20Viz%20-%20Principles%20and%20Practices%20for%20Engaging%20Presentations/data-viz-principles/">-->
     <base href="https://kuba-k-k.github.io/data-viz-principles/">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.0.3/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
@@ -15,11 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
     <script src="js/script.js"></script>
 
+    <link href="https://cdn.datatables.net/v/dt/dt-2.0.3/datatables.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-
-
 
   </head>
 
@@ -27,8 +27,7 @@
     <!-- Navbar -->
     <div id="navbar"></div>
 
-    <!-- Content Containers -->
-
+    <!-- content containers -->
     <!-- what is data visualization -->
     <div class="content-container px-3 d-flex justify-content-center">
       <div id="quote-container" class="text-center my-auto">
@@ -466,7 +465,209 @@
       </div>
     </div>
 
-    <!-- Infographics -->
+    <!-- LATCH -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="latch" class="display-5 ps-5 pb-1">LATCH</h1>
+      <div class="pt-2 px-5">
+        <p class="lead">Standard <strong>LATCH</strong> to ramy opracowane przez architekta informacji Richarda Saula Wurmana w jego książce <a href="https://books.google.pl/books/about/Information_Architects.html?id=HxBgQgAACAAJ&redir_esc=y" target="_blank">Information Architects</a>. Określają one pięć podstawowych sposobów organizacji informacji, ułatwiających ich zrozumienie i przyswajanie.</p>
+      </div>
+
+      <div class="row pt-2 px-5 mx-3">
+        <div class="form-check col">
+          <input class="form-check-input h5 mt-2" type="radio" name="latchOption" value="location" id="latch-location">
+          <label class="form-check-label h3" for="latch-location">
+            Lokalizacja
+          </label>
+          <a class="pointer" title="Lokalizacja (Location)" data-bs-content="Organizacja informacji geograficznie lub przestrzennie. Jest to szczególnie przydatne w mapach, planach i wszelkiego rodzaju wizualizacjach przestrzennych, gdzie relacje przestrzenne i lokalizacja mają kluczowe znaczenie." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 8px; font-size: 2vh;"></i></a>
+        </div>
+        <div class="form-check col">
+          <input class="form-check-input h5 mt-2" type="radio" name="latchOption" value="alphabet" id="latch-alphabet">
+          <label class="form-check-label h3" for="latch-alphabet">
+            Alfabet
+          </label>
+          <a class="pointer" title="Alfabet (Alphabet)" data-bs-content="Używanie porządku alfabetycznego do organizacji informacji. Jest to uniwersalna metoda, która pozwala na szybkie wyszukiwanie i sortowanie danych według nazw, tytułów lub innych kluczowych słów." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 8px; font-size: 2vh;"></i></a>
+        </div>
+        <div class="form-check col">
+          <input class="form-check-input h5 mt-2" type="radio" name="latchOption" value="time" id="latch-time">
+          <label class="form-check-label h3" for="latch-time">
+            Czas
+          </label>
+          <a class="pointer" title="Czas (Time)" data-bs-content="Organizacja danych chronologicznie. Ta metoda jest szczególnie przydatna w osiach czasu, liniach czasu projektów, historiach, wykresach zmian i wszędzie tam, gdzie sekwencja czasowa lub historyczna jest istotna." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 8px; font-size: 2vh;"></i></a>
+        </div>
+        <div class="form-check col">
+          <input class="form-check-input h5 mt-2" type="radio" name="latchOption" value="category" id="latch-category">
+          <label class="form-check-label h3" for="latch-category">
+            Kategoria
+          </label>
+          <a class="pointer" title="Kategoria (Category)" data-bs-content="Grupowanie informacji według tematów, rodzajów lub innych wspólnych cech. Umożliwia to agregację danych w logiczne grupy, co ułatwia analizę i porównywanie podobieństw oraz różnic." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 8px; font-size: 2vh;"></i></a>
+        </div>
+        <div class="form-check col">
+          <input class="form-check-input h5 mt-2" type="radio" name="latchOption" value="hierarchy" id="latch-hierarchy">
+          <label class="form-check-label h3" for="latch-hierarchy">
+            Hierarchia
+          </label>
+          <a class="pointer" title="Hierarchia (Hierarchy)" data-bs-content="Organizacja danych według ważności, wielkości lub innego kryterium pozwalającego na ustalenie rangi. Hierarchia pomaga wizualizować relacje między informacjami, od najważniejszych po najmniej istotne, lub od ogółu do szczegółu." tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 10px; margin-top: 8px; font-size: 2vh;"></i></a>
+        </div>
+      </div>
+
+      <div class="row pt-2 px-5">
+        <div class="col-8">
+          <div id="latch-table-container" class="small-small">
+            <table id="latch-table" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Pomieszczenie</th>
+                        <th>Gatunek</th>
+                        <th>Tytuł</th>
+                        <th>Autor</th>
+                        <th>Autor (nazwisko)</th>
+                        <th>Cena</th>
+                        <th>Cena wydawcy</th>
+                        <th>Promocja[zł]</th>
+                        <th>Promocja[%]</th>
+                        <th>Rok</th>
+                    </tr>
+                </thead>
+            </table>
+          </div>
+        </div>
+        <div class="col-4">
+          <div id="latch-chart" class="border" style="margin-top: 5px; display: flex; justify-content: center; height: 370px;"></div>
+        </div>
+      </div>
+      <p class="px-5 pt-4 small">Lista książek wraz z cenami pobrana ze strony internetowej księgarni <a class="pointer" href="https://bonito.pl/" target="_blank">bonito.pl</a> 27 marca 2024.</p>
+    </div>
+
+    <!-- typography -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="typography" class="display-5 ps-5 pb-1">Typografia</h1>
+      <div class="pt-2 px-5">
+        <p class="lead">Typografia dotyczy do wizualnego aspektu tekstu. Stosowanie jej w praktyce polega na takim skomponowaniu elementów graficznych tekstu, aby był on czytelny i estetyczny. Może służyć tworzeniu pewnych wrażeń i doznań, wzmacniać przekaz wypowiedzi. Aby to osiągnąć, stosowane są różne kroje i style czcionek, a także odpowiednio dobrane rozmiary znaków, większe lub mniejsze odstępy między literami, słowami i wierszami.</p>
+      </div>
+      <div class="row pt-2 px-5">
+        <div class="col-2">
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-serif">
+            <label style="font-family: serif;" class="form-check-label h4" for="typography-menu-serif">Serif</label>
+            <a class="pointer" title="Serif" data-bs-content='Czcionki z serifami (szeryfowe), czyli małymi "nóżkami" przy końcu liter, są tradycyjnie uważane za bardziej formalne i klasyczne. Są często używane w dłuższych tekstach drukowanych - poprawiają jakość czytania, prowadząc oko po linii tekstu.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-sansserif">
+            <label style="font-family: sans-serif;" class="form-check-label h4" for="typography-menu-sansserif">Sans Serif</label>
+            <a class="pointer" title="Sans Serif" data-bs-content='Czcionki bezszeryfowe charakteryzują się prostotą i czystością linii. Są one postrzegane jako bardziej nowoczesne i minimalistyczne, często wykorzystywane w kontekście cyfrowym dla lepszej czytelności na ekranach oraz w projektach graficznych o współczesnym wyglądzie.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-script">
+            <label style="font-family: 'Great Vibes', cursive;" class="form-check-label h4" for="typography-menu-script">Script</label>
+            <a class="pointer" title="Script" data-bs-content='Czcionki skryptowe imitują ręczne pismo i są używane do nadania projektom osobistego, eleganckiego lub luźniejszego charakteru. Nadają się do zaproszeń, dyplomów lub wszędzie tam, gdzie potrzebny jest bardziej artystyczny wydźwięk.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-allcaps">
+            <label style="text-transform: uppercase;" class="form-check-label h4" for="typography-menu-allcaps">Wersaliki</label>
+            <a class="pointer" title="Wersaliki" data-bs-content='Stosowanie wyłącznie wielkich liter jest często używane w nagłówkach, tytułach lub w innych sytuacjach, które wymagają mocnego podkreślenia. Może również służyć do wyróżnienia słów lub fraz.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-smallcaps">
+            <label style="font-variant: small-caps;" class="form-check-label h4" for="typography-menu-smallcaps">Kapitaliki</label>
+            <a class="pointer" title="Kapitaliki" data-bs-content='Małe wielkie litery, czyli "kapitaliki", to styl, w którym małe litery są przedstawione jako mniejsze wersje wielkich liter. Stosowany do subtelnych akcentów, oznaczeń czy w tekście prawnym i akademickim, dla zwiększenia czytelności oraz formalności.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-bold">
+            <label style="font-weight: bold;" class="form-check-label h4" for="typography-menu-bold">Bold</label>
+            <a class="pointer" title="Bold" data-bs-content='Bold czyli pogrubione czcionki są stosowane do przyciągania uwagi i wyróżniania najważniejszych informacji. Pogrubienie może również pomagać w hierarchii informacyjnej, zaznaczając tytuły lub nagłówki.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input h6 mt-2" type="checkbox" value="" id="typography-menu-italic">
+            <label style="font-style: italic;" class="form-check-label h4" for="typography-menu-italic">Pochylenie</label>
+            <a class="pointer" title="Pochylenie" data-bs-content='Kursywa jest używana do podkreślenia, nadania nacisku lub wyróżnienia cytatów, terminów obcojęzycznych lub wzmianek. Może również służyć do odróżnienia subtelnego ale ważnego elementu w tekście.' tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"><i class="bi bi-question-square" style="position: absolute; margin-left: 8px; margin-top: 5px; font-size: 2vh;"></i></a>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="typography-image-container">
+            <img src="img/egyptian_cat.png" class="pe-2" style="max-height: 450px;">
+            <div class="typography-image-overlay-top-empty">Tajemnicze koty</div>
+            <div class="typography-image-overlay-center-empty">
+              <figure id="quote-figure" style="margin-bottom: 0px;">
+                <blockquote id="title-quote" class="blockquote mb-0">
+                  <p><span>Kto szepcze w nocy do kotów, ten rozmawia z bogami.</span></p>
+                </blockquote>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <div class="ms-5 ps-5">
+            <p class="typography-title-empty typography-strong-empty">Strażnicy tajemnic: Koty w starożytnym świecie</p>
+            <p class="typography-p-empty">Są dwie teorie tłumaczące skąd kot wziął się w starożytnym Egipcie. Zgodnie z pierwszą z nich, <span class="typography-strong-empty">kot miał przybyć do Egiptu na pokładzie starożytnych statków handlowych</span> około 2 tys. lat p.n.e. Z kolei druga z nich mówi, że staroegipskie koty pochodziły od <span class="typography-strong-empty">rodzimego afrykańskiego żbika <span class="typography-em-empty">Felis silvestris lybica</span></span>, udomowionego przez miejscowych rolników.</p>
+            <p class="typography-p-empty">Na początku warto sprecyzować w jakim sensie czczono koty. Jak wskazuje egiptolożka, dr Julia Troche z <span class="typography-em-empty">University of Missouri</span>, starożytni Egipcjanie nie czcili zwierząt jako zwierzęcia lecz jako reprezentację boskich aspektów ich bogów. Nie inaczej było w przypadku kotów.</p>
+            <p class="typography-p-empty">Ich szczególna rola wynikała między innymi stąd, że <span class="typography-strong-empty">bogini <span class="typography-em-empty">Bastet</span> była wyobrażana z głową kota</span>.</p>
+            <p class="typography-p-empty">Wizerunek bogini przeszedł jednak transformację kulturową. <span class="typography-em-empty">Bastet</span> była początkowo przedstawiona jako dzika lwica, ale dopiero później jako posłuszna kotka domowa.</p>
+            <p class="typography-p-empty">Bogini ta była bóstwem symbolizującym <span class="typography-strong-empty">płodność</span>. W związku z tym uważano, że również koty posiadają moc zwiększania płodności, dlatego na malowidłach były często przedstawiane jako siedzące pod krzesłem, na którym znajdowała się kobieta.</p>
+          </div>
+
+        </div>
+      </div>
+      <p class="px-5 pt-4 small">Tekst pochodzi z artykułu <a class="pointer" href="https://zielona.interia.pl/raporty2/news-koty-w-starozytnym-egipcie-przedmiot-kultu-czy-tortur,nId,6596903" target="_blank">Koty w starożytnym Egipcie. Przedmiot kultu czy tortur?</a> opublikowanego na portalu Interia.pl.</p>
+    </div>
+
+    <!-- select the right chart -->
+    <hr>
+    <div class="content-container px-lg-5 py-3">
+      <h1 id="select-right-chart" class="display-5 ps-5 pb-1">Dobierz typ wykresu do danych</h1>
+      <div class="pt-2 px-5">
+        <p class="lead">Istnieje wiele typów wykresów, słupkowe, kołowe, liniowe, radarowe, i wiele innych. Jednak nie każdy wykres pasuje do każdych danych. Aby dobrać odpowiedni wykres do swoich danych możesz skorzystać ze stron takich jak <a href="https://www.data-to-viz.com/" target="_blank" class="pointer">from Data to Viz</a>, czy <a href="https://www.rawgraphs.io/" target="_blank" class="pointer">RAWGraphs</a>.</p>
+      </div>
+
+      <div class="px-5 pt-2">
+        <div id="carouselSelectRightChart" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="img/bad_good_charts_01.jpg" class="d-block w-100" alt=''>
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <p>Kolumny 3D pozwalają odczytać dane, łatwo śledzić serię na pierwszym planie jak i tą w tle. Trudno jednak dokładnie ocenić wysokość poszczególnych słupków, trudno też dokonać bezpośredniego porównania. Zamiast wizualizacji 3D lepiej jest używać wykresów kratowych.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="img/bad_good_charts_02.jpg" class="d-block w-100" alt=''>
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <p>Suma wszystkich wycinków na wykresie kołowym musi wynosić 100%, a w powyższym przypadku wycinki sumują się do 135%. Jeśli mamy do czynienia z nakładającymi się kategoriami, najlepiej pokazać, w jaki sposób są one ze sobą powiązane. Można to zrobić za pomocą mozaiki lub treemap.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="img/bad_good_charts_03.jpg" class="d-block w-100" alt=''>
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <p>Na wykresie po lewej widać trendy rosnącego udziału w rynku firmy A i malejącego firmy E. Jednakże względne udziały w rynku pięciu przedsiębiorstw w każdym roku są trudne do porównania. Trudno również porównywać udziały w rynku firm B, C i D na przestrzeni lat. W przypadku tego zbioru danych najlepszym wyborem są słupki umieszczone obok siebie.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="img/bad_good_charts_04.jpg" class="d-block w-100" alt=''>
+              <div class="carousel-caption d-none d-md-block text-dark">
+                <p>Często mamy wiele przebiegów czasowych, które chcemy pokazać jednocześnie. W takim przypadku musimy być ostrożni w sposobie wizualizacji danych, ponieważ wykres może stać się trudny do odczytania. Na przykład, jeśli chcemy pokazać miesięczne zgłoszenia preprintów na kilku serwerach, wykres punktowy nie jest dobrym pomysłem, ponieważ poszczególne przebiegi czasowe nakładają się na siebie. Łączenie kropek liniami rozwiązuje ten problem.</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselSelectRightChart" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <p class="pt-3 small">Powyższe przykłady pochodzą z książki <a href="https://clauswilke.com/dataviz/" target="_blank" class="pointer">Fundamentals of Data Visualization</a> autorstwa Clausa O. Wilke'a. ZNajdziesz w niej dużo, dużo więcej ciekawych materiałów.</p>
+      </div>
+    </div>
+
+    <!-- infographics -->
     <hr>
     <div class="content-container px-lg-5 py-3">
       <h1 id="infographics" class="display-5 ps-5 pb-1">Infografika</h1>
@@ -558,7 +759,6 @@
             <input class="form-check-input h6 mt-2" type="checkbox" value="" id="practice-menu-depth">
             <label class="form-check-label h4" for="practice-menu-depth">Głębia / objętość</label>
           </div>
-          <div><a id="practice-menu-again" class="pointer">(spróbuj jeszcze raz)</a></div>
         </div>
         <div class="col-9">
           <div id="pointtooltip" style="position: absolute; visibility: hidden; padding: 8px; background-color: white; border: 1px solid #ddd; border-radius: 4px; text-align: left; font-size: 12px; color: #333;"></div>
@@ -587,7 +787,9 @@
       <h1 id="links" class="display-5 ps-5 pb-1">Więcej materiałów</h1>
       <div class="px-5 pt-3">
         <ul>
+          <a class="pointer" href="https://clauswilke.com/dataviz/" target="_blank"><li class="h3">Fundamentals of Data Visualization / Claus O. Wilke- pełna wersja przed korektą</li></a>
           <a class="pointer" href="https://www.interaction-design.org/" target="_blank"><li class="h3">Interaction Design Foundation - szkoła projektowania online</li></a>
+          <a class="pointer" href="https://getbootstrap.com/" target="_blank"><li class="h3">Bootstrap - najpopularniejszy na świecie zbiór bibliotek open-source umożliwiający szybkie projektowanie oraz tworzenie kodu frontendu responsywnych stron internetowych.</li></a>
           <a class="pointer" href="https://www.color-meanings.com/" target="_blank"><li class="h3">Color Meanings - serwis o znaczeniu kolorów projektanta Jacoba Olesena</li></a>
           <a class="pointer" href="https://www.canva.com/colors/color-wheel/" target="_blank"><li class="h3">Canva / koło kolorów</li></a>
           <a class="pointer" href="https://www.tradingview.com/" target="_blank"><li class="h3">TradingView - platforma analityczna dla traderów i inwestorów.</li></a>
@@ -595,12 +797,9 @@
           <a class="pointer" href="http://poppyfield.org/" target="_blank"><li class="h3">Poppy Field - projekt wizualny, refleksja nad życiem ludzkim straconym na wojnach</li></a>
           <a class="pointer" href="https://musicmap.info/" target="_blank"><li class="h3">MusicMap - projekt wizualny przedstawiający genealogię popularnych gatunków muzycznych</li></a>
           <a class="pointer" href="https://informationisbeautiful.net/" target="_blank"><li class="h3">Information is Beautiful - serwis Davida McCandlessa, autora bestsellerowych książek z infografikami</li></a>
-
-
         </ul>
       </div>
     </div>
-
 
     <!-- Footer -->
     <div id="footer"></div>
@@ -622,6 +821,8 @@
     <script src="js/page5_color-models.js" charset="utf-8"></script>
     <script src="js/page7_infographics.js" charset="utf-8"></script>
     <script src="js/page8_practical_use.js" charset="utf-8"></script>
+    <script src="js/page9_latch.js" charset="utf-8"></script>
+    <script src="js/page10_typography.js" charset="utf-8"></script>
 
     <script type="text/javascript">
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
