@@ -29,7 +29,7 @@ $(document).ready(function() {
         this.country_mapping = country_mapping;
 
         // svg setup
-        const margin = {top: 50, right: 60, bottom: 20, left: 60};
+        const margin = {top: 50, right: 60, bottom: 50, left: 60};
         this.width = this.width - margin.left - margin.right;
         this.height = this.height - margin.top - margin.bottom;
 
